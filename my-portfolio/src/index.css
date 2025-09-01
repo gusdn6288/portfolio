@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 전체 배경색 */
+:root {
+  --page-bg: #ececec;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  background: var(--page-bg);
+}

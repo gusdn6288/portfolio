@@ -1,0 +1,58 @@
+import SectionTitle from "./SectionTitle";
+import SectionReveal from "./SectionReveal";
+
+function Item({
+  period,
+  title,
+  desc,
+  last = false,
+}: {
+  period: string;
+  title: string;
+  desc?: string;
+  last?: boolean;
+}) {
+  return (
+    <li
+      className={`flex justify-between items-start pb-5 ${
+        !last ? "border-b border-white/10 mb-5" : ""
+      }`}
+    >
+      {/* 기간 */}
+      <p className="text-sm text-white/60 w-32 shrink-0">{period}</p>
+
+      {/* 내용 */}
+      <div className="flex-1">
+        <p className="font-semibold text-white">{title}</p>
+        {desc && <p className="text-sm text-white/60">{desc}</p>}
+      </div>
+    </li>
+  );
+}
+
+export default function EducationSection() {
+  return (
+    <SectionReveal className="mx-auto max-w-3xl px-6 py-32">
+      <SectionTitle>교육 및 자격증</SectionTitle>
+
+      <ul className="text-white/85">
+        <Item
+          period="2019 - 2022"
+          title="대전대학교 중퇴"
+          desc="컴퓨터공학과"
+        />
+        <Item
+          period="2023 - 2025"
+          title="한국교통대학교 편입"
+          desc="소프트웨어학과"
+        />
+        <Item
+          period="2025.01 - 08"
+          title="LG U+ 유레카 2기"
+          desc="프론트엔드 과정 부트캠프 수료"
+        />
+        <Item period="2024.09.10" title="정보처리기사" last />
+      </ul>
+    </SectionReveal>
+  );
+}
