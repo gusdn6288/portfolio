@@ -13,6 +13,12 @@ jobs:
   build-test:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+
+    # 매 step 기본 작업 경로를 my-portfolio로
+    defaults:
+      run:
+        working-directory: my-portfolio
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,6 +28,8 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          # 캐시 키 생성에 사용할 lockfile 경로 지정
+          cache-dependency-path: my-portfolio/package-lock.json
 
       - name: Install deps
         run: npm ci
@@ -38,10 +46,9 @@ jobs:
       - name: Build
         run: npm run build
 
-      # (선택) 빌드 결과물을 아티팩트로 보존
       - name: Upload dist artifact
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: dist
+          path: my-portfolio/dist
