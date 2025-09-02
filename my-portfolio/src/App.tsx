@@ -1,12 +1,14 @@
 import Header from "./components/Header";
 import FAB from "./components/FAB";
 import SideNav from "./components/SideNav";
-import AboutSection from "./components/AboutSection";
-import CoreSkillsSection from "./components/CoreSkillsSection";
-import TechStackSection from "./components/TechStackSection";
-import EducationSection from "./components/EducationSection";
-import ProjectsSection from "./components/ProjectsSection";
-import BlogSection from "./components/BlogSection";
+
+import HomeSection from "./section/HomeSection";
+import AboutSection from "./section/AboutSection";
+import CoreSkillsSection from "./section/CoreSkillsSection";
+import TechStackSection from "./section/TechStackSection";
+import EducationSection from "./section/EducationSection";
+import ProjectsSection from "./section/ProjectsSection";
+import BlogSection from "./section/BlogSection";
 
 export default function App() {
   return (
@@ -15,17 +17,8 @@ export default function App() {
       <FAB />
       <SideNav />
 
-      {/* Hero - 밝은 배경 */}
-      <section
-        id="home"
-        className="mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 bg-[#ECECEC]"
-      >
-        <h1 className="text-hero text-black/10">Front-End</h1>
-        <p className="mt-2 text-subhero text-black/80">
-          프론트엔드 개발자{" "}
-          <span className="font-extrabold text-black">김현우</span>입니다.
-        </p>
-      </section>
+      {/* Hero - 밝은 배경 (섹션 중첩 X) */}
+      <HomeSection />
 
       {/* About 이하 - 어두운 배경 */}
       <section id="about" className="bg-[#232323] text-white">
@@ -46,7 +39,7 @@ export default function App() {
         <EducationSection />
       </section>
 
-      <section id="project" className="bg-[#232323] text-white  py-24">
+      <section id="project" className="bg-[#232323] text-white py-24">
         <ProjectsSection />
       </section>
 
