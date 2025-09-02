@@ -1,25 +1,31 @@
+// src/section/AboutSection.tsx
+import SectionReveal from "../components/SectionReveal";
+
 export default function AboutSection() {
   return (
-    <section id="about" className="mx-auto max-w-6xl px-6 py-16 text-black">
+    <SectionReveal className="mx-auto max-w-6xl px-6 py-24">
       {/* 프로필 */}
       <div className="flex flex-col items-center mb-12">
-        <div className="w-36 h-44 rounded-xl overflow-hidden ring-1 ring-black/10 mb-4">
+        <div className="w-36 h-44 rounded-xl overflow-hidden ring-1 ring-white/10 mb-4 bg-white/5">
           {/* 이미지 교체 */}
-          <img src="" alt="profile" className="h-full w-full object-cover" />
+          {/* <img src="/images/profile.jpg" alt="profile" className="h-full w-full object-cover" /> */}
         </div>
-        <button className="rounded-lg bg-black text-white text-xs px-3 py-1.5 hover:bg-black/80">
+        <button className="rounded-lg bg-white text-black text-xs px-3 py-1.5 hover:bg-white/90">
           응원에 한마디 적기
         </button>
       </div>
 
       {/* 인터뷰 */}
-      <h3 className="text-2xl font-bold mb-4 text-center text-white">
+      <h3 className="text-2xl font-bold mb-6 text-center text-white">
         Interview
       </h3>
+
       <div className="space-y-4 max-w-3xl mx-auto">
-        <div className="rounded-lg bg-gray-100 p-4 text-left">
-          <p className="font-semibold mb-2">Q. 프론트엔드를 결정한 이유?</p>
-          <p>
+        <div className="rounded-lg bg-white/5 border border-white/10 p-4 text-left">
+          <p className="font-semibold mb-2 text-white">
+            Q. 프론트엔드를 결정한 이유?
+          </p>
+          <p className="text-white/80">
             대학교 캡스톤 디자인에서 처음 프로젝트를 경험했을 때, 실력이
             부족했던 저는 디자인을 담당하며 개발에는 소극적이었습니다. 하지만
             화면이 실제로 구현되고 동작하는 과정을 보며 큰 흥미와 성취감을
@@ -28,9 +34,9 @@ export default function AboutSection() {
           </p>
         </div>
 
-        <div className="rounded-lg bg-gray-100 p-4 text-left">
-          <p className="font-semibold mb-2">Q. 나를 표현한다면?</p>
-          <p>
+        <div className="rounded-lg bg-white/5 border border-white/10 p-4 text-left">
+          <p className="font-semibold mb-2 text-white">Q. 나를 표현한다면?</p>
+          <p className="text-white/80">
             저를 표현한다면 “어제보다 성장하는 사람”입니다. 저는 하루하루
             작게라도 배운 것을 기록하고 실천하며 꾸준히 발전하는 것을 중요하게
             생각합니다. 새로운 기술을 익히고 문제를 해결하는 과정에서 어제의
@@ -39,11 +45,11 @@ export default function AboutSection() {
           </p>
         </div>
 
-        <div className="rounded-lg bg-gray-100 p-4 text-left">
-          <p className="font-semibold mb-2">
+        <div className="rounded-lg bg-white/5 border border-white/10 p-4 text-left">
+          <p className="font-semibold mb-2 text-white">
             Q. 성장을 위해 어떤 노력을 하고 있는지?
           </p>
-          <p>
+          <p className="text-white/80">
             저는 성장을 위해 매일 꾸준히 1일 1블로그 작성으로 학습 내용을
             기록하고 있습니다. 또한 코딩테스트 문제를 풀며 문제 해결 능력을
             키우고, 예전 프로젝트 팀원들과의 스터디를 통해 새로운 기술을 함께
@@ -52,6 +58,6 @@ export default function AboutSection() {
           </p>
         </div>
       </div>
-    </section>
+    </SectionReveal>
   );
 }

@@ -1,6 +1,6 @@
 // src/components/ProjectsSection.tsx
-import SectionTitle from "./SectionTitle";
-import SectionReveal from "./SectionReveal";
+import SectionTitle from "../components/SectionTitle";
+import SectionReveal from "../components/SectionReveal";
 
 function ProjectCard({
   title,

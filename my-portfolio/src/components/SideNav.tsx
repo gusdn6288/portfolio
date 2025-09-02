@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { smoothScrollTo } from "../utils/smoothScroll";
 
-const sections = ["home", "about", "project", "activity"];
+const sections = ["home", "about", "project"];
 
 export default function SideNav() {
   const [active, setActive] = useState("home");
@@ -56,7 +56,6 @@ export default function SideNav() {
             {id === "home" && "Home"}
             {id === "about" && "About me"}
             {id === "project" && "Project"}
-            {id === "activity" && "Activity"}
           </a>
         ))}
       </nav>
