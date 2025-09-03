@@ -1,5 +1,6 @@
-// src/section/AboutSection.tsx
 import SectionReveal from "../components/SectionReveal";
+// 이미지 import
+import profileImg from "../assets/asd.png";
 
 export default function AboutSection() {
   return (
@@ -7,8 +8,11 @@ export default function AboutSection() {
       {/* 프로필 */}
       <div className="flex flex-col items-center mb-12">
         <div className="w-36 h-44 rounded-xl overflow-hidden ring-1 ring-white/10 mb-4 bg-white/5">
-          {/* 이미지 교체 */}
-          {/* <img src="/images/profile.jpg" alt="profile" className="h-full w-full object-cover" /> */}
+          <img
+            src={profileImg}
+            alt="profile"
+            className="h-full w-full object-cover"
+          />
         </div>
         <button className="rounded-lg bg-white text-black text-xs px-3 py-1.5 hover:bg-white/90">
           응원에 한마디 적기
