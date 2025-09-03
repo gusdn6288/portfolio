@@ -1,0 +1,70 @@
+name: Update Progress Badge
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # 매일 00:00 UTC에 갱신 (옵션)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Calc checklist progress
+        id: calc
+        run: |
+          # 체크박스 전체/완료 개수 계산
+          TOTAL=$(grep -E '^\s*-\s*\[( |x|X)\]' -c README.md || echo 0)
+          DONE=$(grep -E '^\s*-\s*\[(x|X)\]' -c README.md || echo 0)
+
+          if [ "$TOTAL" -eq 0 ]; then
+            PCT=0
+          else
+            # 소수점 반올림(버림) 없이 0.5 올리고 정수화하려면 awk 사용
+            PCT=$(awk -v d="$DONE" -v t="$TOTAL" 'BEGIN{printf("%d", (d*100)/t)}')
+          fi
+
+          echo "total=$TOTAL" >> $GITHUB_OUTPUT
+          echo "done=$DONE" >> $GITHUB_OUTPUT
+          echo "pct=$PCT" >> $GITHUB_OUTPUT
+
+      - name: Update badge in README
+        run: |
+          PCT="${{ steps.calc.outputs.pct }}"
+          COLOR="lightgrey"
+          if   [ "$PCT" -ge 90 ]; then COLOR="brightgreen"
+          elif [ "$PCT" -ge 70 ]; then COLOR="green"
+          elif [ "$PCT" -ge 50 ]; then COLOR="yellow"
+          elif [ "$PCT" -ge 30 ]; then COLOR="orange"
+          else COLOR="lightgrey"; fi
+
+          # 새 뱃지 마크다운 한 줄 생성
+          BADGE="![Progress](https://img.shields.io/badge/Progress-${PCT}%25-${COLOR})"
+
+          # 마커 사이 내용을 BADGE로 치환
+          awk -v badge="$BADGE" '
+            BEGIN{start="<!--progress-badge-start-->", end="<!--progress-badge-end-->", in=0}
+            {
+              if ($0 ~ start) {print $0; print badge; in=1; next}
+              if ($0 ~ end)   {in=0}
+              if (in==0) print $0
+            }
+          ' README.md > README.tmp && mv README.tmp README.md
+
+      - name: Commit & Push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet; then
+            echo "No changes."
+          else
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add README.md
+            git commit -m "chore: update progress badge to ${{ steps.calc.outputs.pct }}% (${{ steps.calc.outputs.done }}/${{ steps.calc.outputs.total }})"
+            git push
+          fi
