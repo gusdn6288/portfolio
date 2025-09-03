@@ -94,5 +94,5 @@
 - [ ] 진행률 뱃지 마커 유지(아래 2줄 필수)
   ```md
   <!--progress-badge-start-->
-  ![Progress](https://img.shields.io/badge/Progress-0%25-lightgrey)
+![Progress](https://img.shields.io/badge/Progress-0%25-lightgrey)
   <!--progress-badge-end-->
