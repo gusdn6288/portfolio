@@ -5,7 +5,7 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *" # 매일 00:00 UTC에 갱신 (옵션)
+    - cron: "0 0 * * *" # 매일 00:00 UTC (옵션)
 
 jobs:
   build:
@@ -14,24 +14,35 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Calc checklist progress
+      - name: Calc checklist progress (robust)
         id: calc
+        shell: bash
         run: |
-          # 체크박스 전체/완료 개수 계산
-          TOTAL=$(grep -E '^\s*-\s*\[( |x|X)\]' -c README.md || echo 0)
-          DONE=$(grep -E '^\s*-\s*\[(x|X)\]' -c README.md || echo 0)
+          FILE="README.md"
 
-          if [ "$TOTAL" -eq 0 ]; then
-            PCT=0
-          else
-            PCT=$(awk -v d="$DONE" -v t="$TOTAL" 'BEGIN{printf("%d", (d*100)/t)}')
-          fi
+          # 총 체크박스:  - [ ]  또는  - [x]
+          TOTAL=$(awk '
+            BEGIN{c=0}
+            /^[ \t]*-[ \t]*\[( |x|X)\]/ {c++}
+            END{print c+0}
+          ' "$FILE")
 
-          echo "total=$TOTAL" >> $GITHUB_OUTPUT
-          echo "done=$DONE" >> $GITHUB_OUTPUT
-          echo "pct=$PCT" >> $GITHUB_OUTPUT
+          # 완료 체크박스: - [x]
+          DONE=$(awk '
+            BEGIN{c=0}
+            /^[ \t]*-[ \t]*\[(x|X)\]/ {c++}
+            END{print c+0}
+          ' "$FILE")
+
+          # 퍼센트 (총=0이면 0)
+          PCT=$(awk -v d="$DONE" -v t="$TOTAL" 'BEGIN{ if(t==0) print 0; else printf "%d", (d*100)/t }')
+
+          echo "total=$TOTAL" >> "$GITHUB_OUTPUT"
+          echo "done=$DONE" >> "$GITHUB_OUTPUT"
+          echo "pct=$PCT"   >> "$GITHUB_OUTPUT"
 
       - name: Update badge in README
+        shell: bash
         run: |
           PCT="${{ steps.calc.outputs.pct }}"
           COLOR="lightgrey"
@@ -46,7 +57,7 @@ jobs:
           awk -v badge="$BADGE" '
             BEGIN {
               start="<!--progress-badge-start-->";
-              end="<!--progress-badge-end-->";
+              end  ="<!--progress-badge-end-->";
               in_section=0;
             }
             {
