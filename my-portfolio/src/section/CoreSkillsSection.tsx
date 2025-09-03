@@ -1,6 +1,11 @@
 import SectionTitle from "../components/SectionTitle";
 import SectionReveal from "../components/SectionReveal";
 
+// 이미지 import
+import frontImg from "../assets/front.png";
+import motionImg from "../assets/motion.png";
+import workImg from "../assets/work.png";
+
 function Card({
   title,
   subtitle,
@@ -48,17 +53,17 @@ export default function CoreSkillsSection() {
         <Card
           title="프론트엔드 개발"
           subtitle="상태관리 · 성능 · 애니메이션"
-          imgSrc="/images/frontend.png" // <- 직접 넣을 이미지 경로
+          imgSrc={frontImg}
         />
         <Card
           title="Framer Motion"
           subtitle="부드러운 인터랙션"
-          imgSrc="/images/framer.png"
+          imgSrc={motionImg}
         />
         <Card
           title="커뮤니케이션 및 협업"
           subtitle="Git · Notion · PR 리뷰"
-          imgSrc="/images/collab.png"
+          imgSrc={workImg}
         />
       </div>
     </SectionReveal>

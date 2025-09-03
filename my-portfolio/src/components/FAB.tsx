@@ -26,7 +26,7 @@ export default function FAB() {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <div className="fixed right-6 top-1/2 z-20 flex -translate-y-1/2 flex-col items-center gap-5">
+    <div className="fixed right-6 top-[85%] z-20 flex -translate-y-1/2 flex-col items-center gap-5">
       <FabBtn
         icon={<Mail />}
         label="메일"

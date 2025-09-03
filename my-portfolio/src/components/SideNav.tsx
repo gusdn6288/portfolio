@@ -38,7 +38,7 @@ export default function SideNav() {
   };
 
   return (
-    <aside className="fixed left-6 top-1/3 z-30 hidden md:block">
+    <aside className="fixed left-6 top-[5%] z-30 hidden md:block">
       <nav
         className={`flex flex-col gap-6 text-4xl font-bold transition-colors duration-300 ${
           onDark ? "text-white" : "text-black/50"
