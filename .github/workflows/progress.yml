@@ -1,5 +1,9 @@
 name: Update Progress Badge
 
+permissions:
+  contents: write      # README 수정/브랜치 푸시
+  pull-requests: write # PR 생성/업데이트
+
 on:
   push:
     branches: [ main, master ]
@@ -38,8 +42,8 @@ jobs:
           PCT=$(awk -v d="$DONE" -v t="$TOTAL" 'BEGIN{ if(t==0) print 0; else printf "%d", (d*100)/t }')
 
           echo "total=$TOTAL" >> "$GITHUB_OUTPUT"
-          echo "done=$DONE" >> "$GITHUB_OUTPUT"
-          echo "pct=$PCT"   >> "$GITHUB_OUTPUT"
+          echo "done=$DONE"   >> "$GITHUB_OUTPUT"
+          echo "pct=$PCT"     >> "$GITHUB_OUTPUT"
 
       - name: Update badge in README
         shell: bash
@@ -67,16 +71,44 @@ jobs:
             }
           ' README.md > README.tmp && mv README.tmp README.md
 
-      - name: Commit & Push
+      # 변경사항 커밋 (현재 브랜치에 일단 커밋만)
+      - name: Commit changes (no push yet)
+        id: commit
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore: update progress badge to ${{ steps.calc.outputs.pct }}% (${{ steps.calc.outputs.done }}/${{ steps.calc.outputs.total }})"
+          echo "changed=true" >> $GITHUB_OUTPUT
+
+      # 1차도전: 현재 브랜치(예: main)로 직접 push (protected면 보통 실패)
+      - name: Try direct push
+        if: steps.commit.outputs.changed == 'true'
+        id: push
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if git diff --quiet; then
-            echo "No changes."
-          else
-            git config user.name  "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add README.md
-            git commit -m "chore: update progress badge to ${{ steps.calc.outputs.pct }}% (${{ steps.calc.outputs.done }}/${{ steps.calc.outputs.total }})"
-            git push
-          fi
+          CURRENT_BRANCH="${GITHUB_REF_NAME}"
+          git push origin "HEAD:${CURRENT_BRANCH}"
+
+      # 실패하면: 새 브랜치로 커밋을 옮겨 PR 생성
+      - name: Create Pull Request (fallback)
+        if: steps.commit.outputs.changed == 'true' && steps.push.outcome == 'failure'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: chore/update-progress-badge
+          base: ${{ github.ref_name }}
+          title: "chore: update progress badge to ${{ steps.calc.outputs.pct }}% (${{ steps.calc.outputs.done }}/${{ steps.calc.outputs.total }})"
+          commit-message: "chore: update progress badge to ${{ steps.calc.outputs.pct }}% (${{ steps.calc.outputs.done }}/${{ steps.calc.outputs.total }})"
+          body: |
+            Auto-generated update.
+            - Done: ${{ steps.calc.outputs.done }}
+            - Total: ${{ steps.calc.outputs.total }}
+            - Progress: ${{ steps.calc.outputs.pct }}%
+          labels: automated, progress-badge
