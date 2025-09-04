@@ -47,10 +47,10 @@ export default function HomeSection() {
         >
           <h1 className="text-hero">Front-End</h1>
           <p className="mt-2 text-subhero">
-            프론트엔드 개발자 <span className="font-extrabold">김현우</span>
+            어제보다 성장하는 개발자{" "}
+            <span className="font-extrabold">김현우</span>
             입니다.
           </p>
-
           <DotLottieReact
             src="https://lottie.host/bc1f66f7-8d6d-4f56-94bb-c4d7756c83e5/oVS7kGB5b9.lottie"
             loop
