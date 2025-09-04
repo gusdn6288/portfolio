@@ -1,5 +1,6 @@
 import React from "react";
 import { Mail, MessageSquareText, ChevronUp } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 type FabBtnProps = {
   icon: React.ReactNode;
@@ -23,6 +24,8 @@ function FabBtn({ icon, label, onClick }: FabBtnProps) {
 }
 
 export default function FAB() {
+  const navigate = useNavigate();
+
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
@@ -34,8 +37,8 @@ export default function FAB() {
       />
       <FabBtn
         icon={<MessageSquareText />}
-        label="메시지"
-        onClick={() => alert("메시지 섹션으로 이동 예정")}
+        label="피드백"
+        onClick={() => navigate("/feedback")}
       />
       <FabBtn icon={<ChevronUp />} label="맨 위로" onClick={scrollTop} />
     </div>
