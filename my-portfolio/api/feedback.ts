@@ -1,4 +1,4 @@
-import { getDb } from "./_lib/mongo";
+import { getDb } from "./_lib/mongo.js";
 import { z } from "zod";
 import type { ObjectId } from "mongodb";
 
