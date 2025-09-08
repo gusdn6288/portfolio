@@ -155,7 +155,7 @@ export default function FeedbackPage({
         initial={{ opacity: 0, y: 20 }}
         animate={{
           opacity: showPageLoading ? 0 : 1,
-          y: showPageLoading ? 20 : 0,
+          y: showPageLoading ? 0 : 0,
         }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="h-screen w-full bg-[#232323] text-white"
