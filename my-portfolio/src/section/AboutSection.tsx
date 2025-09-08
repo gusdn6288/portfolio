@@ -14,9 +14,6 @@ export default function AboutSection() {
             className="h-full w-full object-cover"
           />
         </div>
-        <button className="rounded-lg bg-white text-black text-xs px-3 py-1.5 hover:bg-white/90">
-          응원에 한마디 적기
-        </button>
       </div>
 
       {/* 인터뷰 */}
