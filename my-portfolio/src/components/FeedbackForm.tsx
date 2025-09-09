@@ -44,7 +44,7 @@ export default function FeedbackForm({ slug, onSuccess }: FeedbackFormProps) {
       setTimeout(() => {
         setShowSuccess(false);
         onSuccess();
-      }, 1500);
+      }, 2000);
     } catch (e) {
       console.error("Failed to create feedback:", e);
       setError(e instanceof Error ? e.message : "등록 실패");
@@ -71,9 +71,9 @@ export default function FeedbackForm({ slug, onSuccess }: FeedbackFormProps) {
 
   return (
     <div className="w-full rounded-2xl bg-white text-black p-6 shadow-lg">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between ">
         <h3 className="text-xl font-bold">Feedback</h3>
-        <div className="h-3 w-40 bg-neutral-200 rounded-full overflow-hidden">
+        <div className="h-3 w-20 bg-neutral-200 rounded-full overflow-hidden">
           {sending && (
             <div className="h-full w-1/2 animate-pulse bg-neutral-400" />
           )}
@@ -105,7 +105,7 @@ export default function FeedbackForm({ slug, onSuccess }: FeedbackFormProps) {
         </label>
 
         <label className="block">
-          <span className="text-sm text-neutral-700">email (선택)</span>
+          <span className="text-sm text-neutral-700">email</span>
           <input
             type="email"
             value={email}
@@ -127,7 +127,7 @@ export default function FeedbackForm({ slug, onSuccess }: FeedbackFormProps) {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             className="mt-1 w-full rounded-md border border-neutral-300 px-3 py-2 outline-none focus:ring-2 focus:ring-black/20 transition-all resize-none"
-            placeholder="피드백을 남겨주세요..."
+            placeholder="피드백을 남겨주세요!"
             rows={5}
             maxLength={1000}
             required
@@ -139,7 +139,7 @@ export default function FeedbackForm({ slug, onSuccess }: FeedbackFormProps) {
           <button
             type="submit"
             disabled={sending || !message.trim()}
-            className="rounded-md bg-black text-white px-6 py-2 font-semibold hover:bg-black/85 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="w-full rounded-md bg-black text-white px-6 py-2 font-semibold hover:bg-black/85 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           >
             {sending ? "등록 중..." : "등록"}
           </button>

@@ -1,38 +1,59 @@
-// src/components/TechStackSection.tsx
-import SectionTitle from "../components/SectionTitle";
-import SectionReveal from "../components/SectionReveal";
+type Icon = { src: string; alt: string };
 
-export default function TechStackSection() {
+function IconRow({ title, icons }: { title: string; icons: Icon[] }) {
   return (
-    <SectionReveal className="mx-auto max-w-6xl px-6 py-16">
-      <SectionTitle>기술 스택 및 도구</SectionTitle>
+    <div className="text-center">
+      <h3 className="mb-4 text-lg font-semibold text-white">{title}</h3>
+      <div className="flex items-center justify-center gap-4 md:gap-6 opacity-90">
+        {icons.map((it) => (
+          <img
+            key={it.alt}
+            src={it.src}
+            alt={it.alt}
+            className="h-10 w-10 md:h-12 md:w-12"
+            loading="lazy"
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
-      <div className="mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-          <h3 className="mb-4 text-lg font-bold text-white">Front-End</h3>
-          <ul className="space-y-2 text-white/80">
-            <li>React, TypeScript, Vite</li>
-            <li>Tailwind CSS, Framer Motion</li>
-            <li>Zustand, React Query (필요 시)</li>
-          </ul>
-          {/* 아이콘 줄 자리 */}
-          <div className="mt-4 flex items-center gap-3 opacity-80">
-            {/* <img src="/icons/html.svg" /> ... */}
-          </div>
+export default function TechStackSplit() {
+  const frontEnd: Icon[] = [
+    { src: "/icons/html.svg", alt: "HTML5" },
+    { src: "/icons/css.svg", alt: "CSS3" },
+    { src: "/icons/js.svg", alt: "JavaScript" },
+    { src: "/icons/react.svg", alt: "React" },
+    { src: "/icons/tailwind.svg", alt: "Tailwind CSS" }, // 필요 시 경로 교체
+  ];
+
+  const tools: Icon[] = [
+    { src: "/icons/figma.svg", alt: "Figma" },
+    { src: "/icons/github.svg", alt: "GitHub" },
+    { src: "/icons/notion.svg", alt: "Notion" },
+    { src: "/icons/discord.svg", alt: "Discord" },
+  ];
+
+  return (
+    <section className="mx-auto max-w-5xl px-6 py-14">
+      {/* 섹션 타이틀 */}
+      <h2 className="text-center text-2xl md:text-3xl font-extrabold text-white mb-10">
+        기술 스택 및 도구
+      </h2>
+
+      {/* 본문: 좌/우 블록 + 세로 구분선 */}
+      <div className="flex flex-col md:flex-row items-center">
+        {/* 왼쪽 영역 - flex: 1로 동일한 공간 할당 */}
+        <div className="flex-1 flex justify-center">
+          <IconRow title="Front-End" icons={frontEnd} />
         </div>
 
-        <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-          <h3 className="mb-4 text-lg font-bold text-white">Tools</h3>
-          <ul className="space-y-2 text-white/80">
-            <li>GitHub, Notion</li>
-            <li>Figma</li>
-            <li>VS Code, Chrome DevTools</li>
-          </ul>
-          <div className="mt-4 flex items-center gap-3 opacity-80">
-            {/* 툴 아이콘 자리 */}
-          </div>
+        {/* 오른쪽 영역 - flex: 1로 동일한 공간 할당 */}
+        <div className="flex-1 flex justify-center">
+          <IconRow title="Tools" icons={tools} />
         </div>
       </div>
-    </SectionReveal>
+    </section>
   );
 }
