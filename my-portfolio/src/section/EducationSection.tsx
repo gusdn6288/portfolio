@@ -28,29 +28,22 @@ function Item({
 
 export default function EducationSection() {
   return (
-    <SectionReveal
-      className="mx-auto max-w-3xl px-6 py-32 text-left 
-    "
-    >
+    <SectionReveal className="mx-auto max-w-3xl px-6 py-32 text-left ">
       <SectionTitle>교육 및 자격증</SectionTitle>
 
       {/* 교육 */}
 
       <ul className="text-white/85 mb-10 ">
-        <Item
-          period="2019 - 2023"
-          title="대전대학교 중퇴"
-          desc="컴퓨터공학과"
-        />
+        <Item period="2019 - 2023" title="대전대학교" desc="컴퓨터공학과" />
         <Item
           period="2023 - 2025"
-          title="한국교통대학교 편입"
+          title="한국교통대학교"
           desc="소프트웨어학과"
         />
         <Item
           period="2025.01 - 08"
           title="LG U+ 유레카 2기"
-          desc="프론트엔드 과정 부트캠프 수료"
+          desc="프론트엔드 과정 부트캠프"
         />
       </ul>
 

@@ -55,6 +55,39 @@ const FeedbackLoadingScreen = () => {
   );
 };
 
+// FAB 홈 버튼 컴포넌트
+const HomeFAB = () => {
+  const handleHomeClick = () => {
+    // 홈으로 이동하는 로직 (예: React Router의 navigate 사용)
+    window.location.href = "/";
+    // 또는 React Router를 사용하는 경우:
+    // navigate('/');
+  };
+
+  return (
+    <motion.button
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ delay: 0.8, duration: 0.5, type: "spring", stiffness: 200 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      onClick={handleHomeClick}
+      className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-white rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center group"
+      aria-label="홈으로 이동"
+    >
+      <motion.svg
+        className="w-6 h-6 text-[#232323] group-hover:text-gray-700 transition-colors duration-200"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+        whileHover={{ scale: 1.1 }}
+      >
+        <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+      </motion.svg>
+    </motion.button>
+  );
+};
+
 export default function FeedbackPage({
   slug = "/feedback",
 }: {
@@ -249,14 +282,31 @@ export default function FeedbackPage({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.4 }}
-            className="flex items-start h-full"
+            className="flex flex-col items-center h-full"
           >
-            <div className="sticky top-0 w-full">
-              <FeedbackForm slug={slug} onSuccess={handleFormSuccess} />
+            <div className="w-full h-[60%] flex items-start">
+              <div className="sticky top-10 w-full">
+                <FeedbackForm slug={slug} onSuccess={handleFormSuccess} />
+              </div>
+            </div>
+            <div className="w-full h-[50%] flex flex-col items-center justify-center ">
+              <div className="w-[60%] h-auto">
+                <DotLottieReact
+                  src="https://lottie.host/a2997212-6232-4b3b-99ce-8fe2706e8561/51080anXUb.lottie"
+                  loop
+                  autoplay
+                />
+              </div>
+              <p className="text-center text-3xl mt-4">
+                여러분의 피드백으로 성장하겠습니다.
+              </p>
             </div>
           </motion.div>
         </div>
       </motion.section>
+
+      {/* FAB 홈 버튼 */}
+      {!showPageLoading && <HomeFAB />}
     </>
   );
 }

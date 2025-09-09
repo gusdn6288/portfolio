@@ -62,7 +62,7 @@ export default function CoreSkillsSection() {
         />
         <Card
           title="커뮤니케이션 및 협업"
-          subtitle="Git · Notion · PR 리뷰"
+          subtitle="Github, Slack, Notion 등의 협업 도구 사용 경험이 있습니다. 직접 기획, 디자인등의  경험을 기반으로 다른 직군과 원활한 커뮤니케이션이 가능합니다."
           imgSrc={workImg}
         />
       </div>
