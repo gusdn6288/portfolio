@@ -28,11 +28,8 @@ function Item({
 
 export default function EducationSection() {
   return (
-    <SectionReveal className="mx-auto max-w-3xl px-6 py-32 text-left ">
+    <SectionReveal className="mx-auto max-w-5xl px-6 py-14 ">
       <SectionTitle>교육 및 자격증</SectionTitle>
-
-      {/* 교육 */}
-
       <ul className="text-white/85 mb-10 ">
         <Item period="2019 - 2023" title="대전대학교" desc="컴퓨터공학과" />
         <Item

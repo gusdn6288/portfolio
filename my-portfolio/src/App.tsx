@@ -31,12 +31,21 @@ export default function App() {
         <CoreSkillsSection />
       </section>
 
-      <section id="stack" className="bg-[#232323] text-white py-24">
-        <TechStackSection />
-      </section>
+      {/* 교육과 기술스택을 나란히 배치 */}
+      <section className="bg-[#232323] text-white py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {/* 기술 스택 영역 */}
+            <div id="stack">
+              <TechStackSection />
+            </div>
 
-      <section id="education" className="bg-[#232323] text-white py-24">
-        <EducationSection />
+            {/* 교육 영역 */}
+            <div id="education">
+              <EducationSection />
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="project" className="bg-[#232323] text-white py-24">

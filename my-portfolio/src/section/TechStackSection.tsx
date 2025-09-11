@@ -25,7 +25,7 @@ export default function TechStackSplit() {
     { src: "/icons/css.svg", alt: "CSS3" },
     { src: "/icons/js.svg", alt: "JavaScript" },
     { src: "/icons/react.svg", alt: "React" },
-    { src: "/icons/tailwind.svg", alt: "Tailwind CSS" }, // 필요 시 경로 교체
+    { src: "/icons/tailwind.svg", alt: "Tailwind CSS" },
   ];
 
   const tools: Icon[] = [
@@ -42,15 +42,15 @@ export default function TechStackSplit() {
         기술 스택 및 도구
       </h2>
 
-      {/* 본문: 좌/우 블록 + 세로 구분선 */}
-      <div className="flex flex-col md:flex-row items-center">
-        {/* 왼쪽 영역 - flex: 1로 동일한 공간 할당 */}
-        <div className="flex-1 flex justify-center">
+      {/* 본문: 위아래로 배치 */}
+      <div className="space-y-8">
+        {/* 상단 영역 - Front-End */}
+        <div>
           <IconRow title="Front-End" icons={frontEnd} />
         </div>
 
-        {/* 오른쪽 영역 - flex: 1로 동일한 공간 할당 */}
-        <div className="flex-1 flex justify-center">
+        {/* 하단 영역 - Tools */}
+        <div>
           <IconRow title="Tools" icons={tools} />
         </div>
       </div>
