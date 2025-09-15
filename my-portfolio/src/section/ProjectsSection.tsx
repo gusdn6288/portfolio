@@ -264,7 +264,7 @@ export default function ProjectsSection() {
       description:
         "안전하고 투명한 데이터 거래를 위한 블록체인 기반 플랫폼입니다. 데이터 소유자와 구매자를 연결합니다.",
       projectUrl:
-        "https://typhoon-nation-839.notion.site/UTONG-26e720a2d0b080309227f01c8efa2ba5", // 프로젝트 소개 URL로 변경
+        "https://typhoon-nation-839.notion.site/UTONG-26e720a2d0b080309227f01c8efa2ba5s", // 프로젝트 소개 URL로 변경
       githubUrl: "https://github.com/Ureka-final-project-team-3/utong_front", // 실제 URL로 변경
     },
   ];
