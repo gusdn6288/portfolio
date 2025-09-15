@@ -106,8 +106,7 @@ export default function FeedbackList({
   if (items.length === 0) {
     return (
       <div className="text-center py-12">
-        <div className="text-4xl mb-4">🎉</div>
-        <p className="text-white/60">첫 피드백을 남겨주세요!</p>
+        <p className="text-white/60">피드백을 남겨주세요!</p>
       </div>
     );
   }
