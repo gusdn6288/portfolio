@@ -233,7 +233,7 @@ export default function ProjectsSection() {
       imgSrc: "/images/gitpulse.png",
       subtitle: "깃허브 활동 분석",
       description:
-        "개발자들의 GitHub 활동을 시각적으로 분석하고 인사이트를 제공하는 웹 애플리케이션입니다. React와 Chart.js를 활용하여 구현했습니다.",
+        "GitPulse는 팀 개발자의 GitHub 활동 데이터를 수집하고 시각화하여 개발 습관과 협업 패턴을 한눈에 파악할 수 있도록 돕는 웹 애플리케이션입니다.",
       projectUrl:
         "https://typhoon-nation-839.notion.site/GitPulse-26d720a2d0b0808a8465cfc6770df0db?pvs=74", // 프로젝트 소개 URL로 변경
       githubUrl: "https://github.com/GitPulse-04/GitPulse", // 실제 URL로 변경
@@ -243,7 +243,7 @@ export default function ProjectsSection() {
       subtitle: "요금제 챗봇서비스",
       imgSrc: "/images/UNOA.jpg",
       description:
-        "GitPulse는 팀 개발자의 GitHub 활동 데이터를 수집하고 시각화하여 개발 습관과 협업 패턴을 한눈에 파악할 수 있도록 돕는 웹 애플리케이션입니다.",
+        "추천부터 비교, 혜택 정리까지 한 곳에서 나에게 딱 맞는 요금제 관리 도우미입니다.",
       projectUrl:
         "https://typhoon-nation-839.notion.site/UNOW-26e720a2d0b0802ca98bf4a3307a88e5?pvs=74", // 프로젝트 소개 URL로 변경
       githubUrl: "https://github.com/UNOA-Project",
