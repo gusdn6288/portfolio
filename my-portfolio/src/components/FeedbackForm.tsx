@@ -70,7 +70,7 @@ export default function FeedbackForm({ slug, onSuccess }: FeedbackFormProps) {
   }
 
   return (
-    <div className="w-full rounded-2xl bg-white text-black p-6 shadow-lg">
+    <div className="w-full max-w-2xl h-full rounded-2xl bg-white text-black p-8 shadow-lg">
       <div className="flex items-center justify-between ">
         <h3 className="text-xl font-bold">Feedback</h3>
         <div className="h-3 w-20 bg-neutral-200 rounded-full overflow-hidden">
