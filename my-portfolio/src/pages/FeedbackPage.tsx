@@ -55,6 +55,42 @@ const FeedbackLoadingScreen = () => {
   );
 };
 
+// 모바일 폼 토글 버튼
+const FormToggleButton = ({
+  isOpen,
+  onClick,
+}: {
+  isOpen: boolean;
+  onClick: () => void;
+}) => {
+  return (
+    <motion.button
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ delay: 0.8, duration: 0.5, type: "spring", stiffness: 200 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      onClick={onClick}
+      className="fixed bottom-6 left-6 z-50 w-14 h-14 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group lg:hidden"
+      aria-label="피드백 작성"
+    >
+      <motion.div
+        animate={{ rotate: isOpen ? 45 : 0 }}
+        transition={{ duration: 0.2 }}
+      >
+        <svg
+          className="w-6 h-6 text-[#232323] group-hover:text-gray-700 transition-colors duration-200"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+        </svg>
+      </motion.div>
+    </motion.button>
+  );
+};
+
 // FAB 홈 버튼 컴포넌트
 const HomeFAB = () => {
   const handleHomeClick = () => {
@@ -88,6 +124,85 @@ const HomeFAB = () => {
   );
 };
 
+// 모바일 폼 모달
+const MobileFormModal = ({
+  isOpen,
+  onClose,
+  slug,
+  onSuccess,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  slug: string;
+  onSuccess: () => void;
+}) => {
+  const handleSuccess = async () => {
+    await onSuccess();
+    onClose();
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* 배경 오버레이 */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+            onClick={onClose}
+          />
+
+          {/* 모달 컨텐츠 */}
+          <motion.div
+            initial={{ opacity: 0, y: "100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-x-0 bottom-0 z-50 bg-[#232323] rounded-t-3xl shadow-2xl lg:hidden"
+          >
+            {/* 드래그 핸들 */}
+            <div className="flex justify-center pt-4 pb-2">
+              <div className="w-12 h-1 bg-white/30 rounded-full" />
+            </div>
+
+            {/* 헤더 */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+              <h3 className="text-lg font-semibold text-white">피드백 작성</h3>
+              <button
+                onClick={onClose}
+                className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                aria-label="닫기"
+              >
+                <svg
+                  className="w-5 h-5 text-white/70"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            {/* 폼 컨텐츠 */}
+            <div className="p-6 max-h-[70vh] overflow-y-auto">
+              <FeedbackForm slug={slug} onSuccess={handleSuccess} />
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
+
 export default function FeedbackPage({
   slug = "/feedback",
 }: {
@@ -100,6 +215,7 @@ export default function FeedbackPage({
   const [error, setError] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showPageLoading, setShowPageLoading] = useState(true); // 페이지 로딩 상태
+  const [showMobileForm, setShowMobileForm] = useState(false); // 모바일 폼 토글
 
   const title = useMemo(() => "your feedback", []);
 
@@ -176,6 +292,10 @@ export default function FeedbackPage({
     await load(); // 새 피드백 등록 후 목록 새로고침
   };
 
+  const toggleMobileForm = () => {
+    setShowMobileForm(!showMobileForm);
+  };
+
   return (
     <>
       {/* 페이지 로딩 애니메이션 */}
@@ -194,8 +314,8 @@ export default function FeedbackPage({
         className="h-screen w-full bg-[#232323] text-white"
         style={{ display: showPageLoading ? "none" : "block" }}
       >
-        <div className="h-full mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-10 px-6 py-10">
-          {/* 좌측: 목록 컬럼 */}
+        <div className="h-full mx-auto max-w-6xl lg:grid lg:grid-cols-2 gap-10 px-6 py-10">
+          {/* 좌측 또는 모바일 전체: 목록 컬럼 */}
           <div className="flex flex-col h-full overflow-hidden">
             {/* 상단: 제목 + 상태(로딩/에러) — 스크롤 바깥 */}
             <div className="flex-shrink-0">
@@ -203,7 +323,7 @@ export default function FeedbackPage({
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-4xl font-extrabold tracking-tight text-center mb-4"
+                className="text-3xl lg:text-4xl font-extrabold tracking-tight text-center mb-4"
               >
                 {title}
               </motion.h2>
@@ -277,33 +397,34 @@ export default function FeedbackPage({
             </div>
           </div>
 
-          {/* 우측: 폼 (고정) */}
+          {/* 우측: 폼 (데스크톱에서만 표시) */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.4 }}
-            className="flex flex-col items-center h-full"
+            className="hidden lg:flex flex-col items-center h-full"
           >
-            <div className="w-full h-[60%] flex items-start">
+            <div className="w-full h-[100%] flex items-start">
               <div className="sticky top-10 w-full">
                 <FeedbackForm slug={slug} onSuccess={handleFormSuccess} />
               </div>
             </div>
-            <div className="w-full h-[50%] flex flex-col items-center justify-center ">
-              <div className="w-[60%] h-auto">
-                <DotLottieReact
-                  src="https://lottie.host/a2997212-6232-4b3b-99ce-8fe2706e8561/51080anXUb.lottie"
-                  loop
-                  autoplay
-                />
-              </div>
-              <p className="text-center text-3xl mt-4">
-                여러분의 피드백으로 성장하겠습니다.
-              </p>
-            </div>
           </motion.div>
         </div>
       </motion.section>
+
+      {/* 모바일 폼 모달 */}
+      <MobileFormModal
+        isOpen={showMobileForm}
+        onClose={() => setShowMobileForm(false)}
+        slug={slug}
+        onSuccess={handleFormSuccess}
+      />
+
+      {/* 모바일 폼 토글 버튼 */}
+      {!showPageLoading && (
+        <FormToggleButton isOpen={showMobileForm} onClick={toggleMobileForm} />
+      )}
 
       {/* FAB 홈 버튼 */}
       {!showPageLoading && <HomeFAB />}
