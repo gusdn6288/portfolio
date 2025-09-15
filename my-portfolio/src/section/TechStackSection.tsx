@@ -1,3 +1,5 @@
+import SectionReveal from "../components/SectionReveal";
+
 type Icon = { src: string; alt: string };
 
 function IconRow({ title, icons }: { title: string; icons: Icon[] }) {
@@ -36,7 +38,7 @@ export default function TechStackSplit() {
   ];
 
   return (
-    <section className="mx-auto max-w-5xl px-6 py-14">
+    <SectionReveal className="mx-auto max-w-5xl px-6 py-14 ">
       {/* 섹션 타이틀 */}
       <h2 className="text-center text-2xl md:text-3xl font-extrabold text-white mb-10">
         기술 스택 및 도구
@@ -54,6 +56,6 @@ export default function TechStackSplit() {
           <IconRow title="Tools" icons={tools} />
         </div>
       </div>
-    </section>
+    </SectionReveal>
   );
 }
