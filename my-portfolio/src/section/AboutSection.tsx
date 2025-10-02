@@ -24,36 +24,25 @@ export default function AboutSection() {
       <div className="space-y-4 max-w-3xl mx-auto">
         <div className="rounded-lg bg-white/5 border border-white/10 p-4 text-left">
           <p className="font-semibold mb-2 text-white">
-            Q. 프론트엔드를 결정한 이유?
+            과정에서 배우고, 과정에서 성장{" "}
           </p>
           <p className="text-white/80">
-            대학교 캡스톤 디자인 프로젝트에서 처음 개발을 경험했을 때, 실력이
-            부족해 UI/UX를 담당했습니다. 화면이 실제로 구현되고 동작하는 과정을
-            지켜보며 개발의 즐거움과 성취감을 느꼈고, 이를 계기로 사용자 경험을
-            직접 만들어가는 프론트엔드의 매력에 빠져 본격적으로 배우고 성장하게
-            되었습니다.
+            개발을 통해 단순히 결과를 만드는 것에 그치지 않고, 과정 속에서
+            배우고 성장하는 경험을 가장 큰 가치로 생각합니다. 새로운 시도와
+            시행착오 속에서 얻은 배움이 곧 저를 더 나은 개발자로 이끌어간다고
+            믿습니다. 비록 과정이 쉽지 않더라도, 그 길을 끝까지 걸어가는 힘이
+            결국 저를 성장시킨다고 생각합니다.
           </p>
         </div>
 
         <div className="rounded-lg bg-white/5 border border-white/10 p-4 text-left">
-          <p className="font-semibold mb-2 text-white">Q. 나를 표현한다면?</p>
+          <p className="font-semibold mb-2 text-white">함께 만드는 가치</p>
           <p className="text-white/80">
-            “여기까지는 누구나 한다, 지금부터 시작이다.” 저는 개발에 어려움이
-            생기거나 힘들 때마다 이 말을 마음에 새기며 한 걸음 더 나아가고
-            있습니다.
-          </p>
-        </div>
-
-        <div className="rounded-lg bg-white/5 border border-white/10 p-4 text-left">
-          <p className="font-semibold mb-2 text-white">
-            Q. 성장을 위해 어떤 노력을 하고 있는지?
-          </p>
-          <p className="text-white/80">
-            저는 성장을 위해 꾸준히 블로그 작성으로 학습 내용을 기록하고
-            있습니다. 또한 코딩테스트 문제를 풀며 문제 해결 능력을 키우고, 예전
-            프로젝트 팀원들과의 스터디를 통해 새로운 기술을 함께 학습하고
-            피드백을 나누고 있습니다. 이러한 습관을 통해 지속적으로 학습하고
-            성장하는 개발자가 되기 위해 노력하고 있습니다.
+            프로젝트를 진행하면서 깨달은 것은 혼자 잘하는 것보다 함께 잘하는
+            것이 더 큰 성과를 만든다는 점입니다. 때로는 개인의 역량이
+            부족하더라도 신뢰와 소통이 된다면 더 큰 시너지를 낼 수 있습니다.
+            저는 ‘함께 성장하는 경험’이야말로 개발의 가장 큰 가치라 믿고, 이를
+            실천하는 팀원이 되고자 합니다.
           </p>
         </div>
       </div>
